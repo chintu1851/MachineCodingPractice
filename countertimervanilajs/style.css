@@ -77,18 +77,17 @@ body {
   transition: background-color 0.3s;
 }
 
-.container-btn button.start {
+.start {
   background-color: #28a745;
   color: white;
 }
 
-.container-btn button.stop {
-    display: none;
+.stop {
+display: none;
   background-color: #dc3545;
   color: white;
 }
-
-.container-btn button.reset {
+.reset {
   background-color: #ffc107;
   color: white;
 }
@@ -96,4 +95,9 @@ body {
 /* Optional: hover effects */
 .container-btn button:hover {
   opacity: 0.9;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
