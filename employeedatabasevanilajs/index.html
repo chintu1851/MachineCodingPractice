@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>JavaScript Sandbox</title>
+    <link rel="stylesheet" href="./style.css"/>
+  </head>
+
+  <body>
+    <!-- 🔹 Header Section -->
+    <header class="header">
+      <h1>Employee Database</h1>
+      <button class="createEmployee">Add Employee</button>
+    </header>
+
+    <!-- 🔹 Main Content -->
+    <main>
+      <div class="employees">
+        <!-- Left Panel: Employee List -->
+        <div class="employees__names">
+          <span class="employees__names--title">Employee-List</span>
+          <div class="employees__names--list"></div>
+        </div>
+
+        <!-- Right Panel: Employee Details -->
+        <div class="employees__single">
+          <span class="employees__single--title">Employee-Information</span>
+          <div class="employees__single--info"></div>
+        </div>
+      </div>
+
+      <!-- 🔹 Modal Backdrop + Add Employee Form -->
+      <div class="addEmployee modal-backdrop">
+        <div class="addemployee">
+          <h2>Add New Employee</h2>
+          <form class="addEmployee_create">
+            <div>
+              <input
+                type="text"
+                name="firstName"
+                placeholder="First Name"
+                required
+              />
+              <input
+                type="text"
+                name="lastName"
+                placeholder="Last Name"
+                required
+              />
+              <input
+                type="email"
+                name="email"
+                placeholder="Enter Email"
+                required
+              />
+              <input
+                type="text"
+                name="address"
+                placeholder="Enter Address"
+                required
+              />
+              <input
+                type="date"
+                name="dob"
+                class="addEmployee_create--dob"
+                placeholder="Enter Date of Birth"
+                required
+              />
+              <input
+                type="number"
+                name="salary"
+                placeholder="Enter Salary"
+                required
+              />
+              <input
+                type="text"
+                name="contactNumber"
+                placeholder="Enter Contact Number"
+                required
+              />
+              <input type="submit" class="addemployee-submit" value="Submit" />
+            </div>
+          </form>
+        </div>
+      </div>
+    </main>
+
+    <!-- JavaScript -->
+    <script src="./index.js" type="module"></script>
+  </body>
+</html>
