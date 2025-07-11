@@ -1,5 +1,4 @@
 
-/*
 🧠 Employee App Logic Summary
 
 🔹 IIFE (Immediately Invoked Function Expression)
