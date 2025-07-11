@@ -39,3 +39,6 @@
 .paginationselected{
   background-color: #ccc;
 }
+.paginationdisable{
+  opacity: 0;
+}

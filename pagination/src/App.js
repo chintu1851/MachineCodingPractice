@@ -13,6 +13,7 @@ function App() {
     }
   };
   const handleclick=(selectedpage)=>{
+    if(selectedpage>=1 && selectedpage<=(products.length/10)&& selectedpage!==page)
     setPage(selectedpage)
   }
   useEffect(() => {
@@ -33,13 +34,13 @@ function App() {
           </div>
 
           <div className="pagination">
-            <span onClick={()=>handleclick(page-1)}>◀️</span>
+            <span onClick={()=>handleclick(page-1)} className={page>products.length/10?"":"paginationdisable"}>◀️</span>
             <span>
               {[...Array(Math.ceil(products.length / 10))].map((_, i) => (
                 <span className={page==i+1?"paginationselected":""} key={i} onClick={()=>handleclick(i+1)}>{i + 1}</span>
               ))}
             </span>
-            <span onClick={()=>handleclick(page+1)}>▶️</span>
+            <span onClick={()=>handleclick(page+1)} className={page<products.length/10?"":"paginationdisable"}>▶️</span>
           </div>
         </>
       )}
