@@ -34,7 +34,7 @@ function App() {
           </div>
 
           <div className="pagination">
-            <span onClick={()=>handleclick(page-1)} className={page>products.length/10?"":"paginationdisable"}>◀️</span>
+            <span onClick={()=>handleclick(page-1)} className={page>1?"":"paginationdisable"}>◀️</span>
             <span>
               {[...Array(Math.ceil(products.length / 10))].map((_, i) => (
                 <span className={page==i+1?"paginationselected":""} key={i} onClick={()=>handleclick(i+1)}>{i + 1}</span>
