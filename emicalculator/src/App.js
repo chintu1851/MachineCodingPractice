@@ -1,58 +1,74 @@
-// App.js
 import './App.css';
 import { useState } from 'react';
 
 function App() {
-  const [cost, setcost] = useState(0);
+  const [cost, setcost] = useState();
   const [interest, setinterest] = useState(10);
   const [fee, setfee] = useState(1);
   const [downpayment, setdownpayment] = useState(0);
   const [tenture, settenture] = useState(12);
   const [emi, setemi] = useState(0);
-  const tenure = [12, 24, 36, 48, 60]
+  const tenure = [12, 24, 36, 48, 60];
+
+  const calculatemi = (dp = downpayment) => {
+    if (!cost) return 0;
+
+    const loanAmount = cost - dp;
+    if (loanAmount <= 0) return 0;
+
+    const monthlyInterest = interest / (12 * 100);
+    const numberOfMonths = tenture;
+
+    const emi =
+      (loanAmount *
+        monthlyInterest *
+        Math.pow(1 + monthlyInterest, numberOfMonths)) /
+      (Math.pow(1 + monthlyInterest, numberOfMonths) - 1);
+
+    return Number(emi.toFixed(0));
+  };
+
+  const calculateDP = (emiVal) => {
+    if (!cost) return 0;
+
+    const fullLoanEmi = calculatemi(0);
+    const ratio = emiVal / fullLoanEmi;
+
+    const loanAmount = ratio * cost;
+    const dp = cost - loanAmount;
+    return Math.round(dp);
+  };
 
   const udpateemi = (e) => {
-    // Empty for now
-    if (!cost) return
+    if (!cost) return;
 
-    const dp = Number(e.target.value)
-    setdownpayment(dp.toFixed(0))
-    const emi=calculatemi(dp)
-    setemi(emi)
+    const dp = Number(e.target.value);
+    setdownpayment(Math.round(dp));
 
+    const emiCalculated = calculatemi(dp);
+    setemi(emiCalculated);
   };
 
   const updatedownpayment = (e) => {
-       if (!cost) return
+    if (!cost) return;
 
-    const dp = Number(e.target.value)
-    setemi(dp.toFixed(0))
-  };
+    const emiVal = Number(e.target.value);
+    setemi(Math.round(emiVal));
 
-  const calculatemi = () => {
-    // Empty for now
-    //const emi = (P * R * Math.pow(1 + R, N)) / (Math.pow(1 + R, N) - 1);
-    const loaamt=cost-downpayment
-    const rateofinterest = interest/100
-    const numberofyears=tenture/12
-
-    const EMI = (loaamt*rateofinterest)*(1+rateofinterest)**(numberofyears)/((1+rateofinterest)**numberofyears-1)
-
-    return Number(EMI/12).toFixed(0)
-
+    const dp = calculateDP(emiVal);
+    setdownpayment(dp);
   };
 
   return (
     <div className="App">
       <h2>EMI Calculator</h2>
       <div className="container">
-
         <span>Total Cost of Asset</span>
         <input
           type="number"
           value={cost}
           placeholder="Total cost of asset"
-          onChange={(e) => setcost(e.target.value)}
+          onChange={(e) => setcost(Number(e.target.value))}
         />
 
         <span>Interest Rate (in %)</span>
@@ -60,7 +76,7 @@ function App() {
           type="number"
           value={interest}
           placeholder="Interest rate"
-          onChange={(e) => setinterest(e.target.value)}
+          onChange={(e) => setinterest(Number(e.target.value))}
         />
 
         <span>Processing Fees (in %)</span>
@@ -68,7 +84,7 @@ function App() {
           type="number"
           value={fee}
           placeholder="Processing fee"
-          onChange={(e) => setfee(e.target.value)}
+          onChange={(e) => setfee(Number(e.target.value))}
         />
 
         <span>Down Payment</span>
@@ -89,16 +105,16 @@ function App() {
         <span>Loan Per Month</span>
         <input
           type="range"
-          min={calculatemi(cost)}
+          min={0}
           max={calculatemi(0)}
-          value={tenture}
+          value={emi}
           className="slider"
           onChange={updatedownpayment}
         />
         <div className="range-labels">
-          <label>0%</label>
+          <label>0</label>
           <b>{emi}</b>
-          <label>100%</label>
+          <label>{calculatemi(0)}</label>
         </div>
 
         <span>Tenure</span>
@@ -113,7 +129,6 @@ function App() {
             </button>
           ))}
         </div>
-
       </div>
     </div>
   );
