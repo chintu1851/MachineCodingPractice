@@ -104,7 +104,7 @@ function App() {
 
         <span>Loan Per Month</span>
         <input
-          type="range"
+          type="range" 
           min={0}
           max={calculatemi(0)}
           value={emi}
