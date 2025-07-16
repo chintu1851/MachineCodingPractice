@@ -1,4 +1,4 @@
-import logo from './logo.svg';
+
 import './App.css';
 import { useState } from 'react';
 import usePassGenerate from './hooks/usePassGenerate';
@@ -45,7 +45,6 @@ function App() {
           }</button>
         </div>)
       }
-
       <div className='character'>
         <span><lable>Character Length</lable></span>
         <input type='range' min="4" max="20" onChange={(e) => setlength(e.target.value)} />
@@ -67,5 +66,4 @@ function App() {
     </div>
   );
 }
-
 export default App;
