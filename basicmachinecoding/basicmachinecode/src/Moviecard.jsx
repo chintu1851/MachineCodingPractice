@@ -3,12 +3,30 @@ import React, { useState } from 'react';
 const MovieCard = () => {
   const [movieList, setMovieList] = useState([]);
   const [newMovie, setNewMovie] = useState('');
+  const [error, setError] = useState('');
 
   const addMovie = () => {
-    if (newMovie.trim() !== '') {
-      setMovieList([...movieList, newMovie]);
-      setNewMovie('');
+    const trimmedName = newMovie.trim();
+
+    // Empty check
+    if (trimmedName === '') {
+      setError('Movie name cannot be empty.');
+      return;
     }
+
+    // Duplicate check (case-insensitive)
+    const isDuplicate = movieList.some(
+      (movie) => movie.toLowerCase() === trimmedName.toLowerCase()
+    );
+    if (isDuplicate) {
+      setError('This movie already exists.');
+      return;
+    }
+
+    // Add movie
+    setMovieList([...movieList, trimmedName]);
+    setNewMovie('');
+    setError('');
   };
 
   const removeMovie = (indexToRemove) => {
@@ -25,6 +43,9 @@ const MovieCard = () => {
         onChange={(e) => setNewMovie(e.target.value)}
       />
       <button onClick={addMovie}>Add Movie</button>
+
+      {/* Error message */}
+      {error && <p style={{ color: 'red' }}>{error}</p>}
 
       <h2>List of Movies</h2>
       {movieList.length === 0 && <p>No movies added yet</p>}
