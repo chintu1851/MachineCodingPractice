@@ -75,7 +75,7 @@ const MovieCard = () => {
           <div key={index} className="card">
             <h3 className="movie-name">{name}</h3>
             <button onClick={() => removeMovie(index)} className="remove-btn">
-              ❌ Remove
+              Remove
             </button>
           </div>
         ))}
